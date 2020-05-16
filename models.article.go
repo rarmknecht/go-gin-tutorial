@@ -2,6 +2,8 @@
 
 package main
 
+import "errors"
+
 // Article data structure definition
 type article struct {
     ID      int     `json:"id"`
@@ -18,4 +20,14 @@ var articleList = []article{
 // Return a list of all the articles
 func getAllArticles() []article {
     return articleList
+}
+
+// Return an article based on the ID
+func getArticleByID(id int) (*article, error) {
+    for _, a := range articleList {
+        if a.ID == id {
+            return &a, nil
+        }
+    }
+    return nil, errors.New("Article not found")
 }
